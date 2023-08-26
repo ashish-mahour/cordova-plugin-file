@@ -159,7 +159,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 {
     CDVFilesystemURL* url = [CDVFilesystemURL fileSystemURLWithURL:[[self request] URL]];
     NSObject<CDVFileSystem> *fs = [filePlugin filesystemForURL:url];
-    __weak CDVFilesystemURLProtocol* weakSelf = self;
+    CDVFilesystemURLProtocol* weakSelf = self;
     
     [fs readFileAtURL:url start:0 end:-1 callback:^void(NSData *data, NSString *mimetype, CDVFileError error) {
         NSMutableDictionary* responseHeaders = [[NSMutableDictionary alloc] init];
@@ -195,7 +195,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 @synthesize rootDocsPath, appDocsPath, appLibraryPath, appTempPath, userHasAllowed, fileSystems=fileSystems_;
 
 - (void)registerFilesystem:(NSObject<CDVFileSystem> *)fs {
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
     SEL sel = NSSelectorFromString(@"urlTransformer");
     // for backwards compatibility - we check if this property is there
     // we create a wrapper block because the urlTransformer property
@@ -796,7 +796,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
         return;
     }
 
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
     [self.commandDelegate runInBackground:^ {
         [destFs copyFileToURL:destURL withName:newName fromFileSystem:srcFs atURL:srcURL copy:bCopy callback:^(CDVPluginResult* result) {
             [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -810,7 +810,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
     // arguments
     CDVFilesystemURL* localURI = [self fileSystemURLforArg:command.arguments[0]];
     NSObject<CDVFileSystem> *fs = [self filesystemForURL:localURI];
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
     [fs getFileMetadataForURL:localURI callback:^(CDVPluginResult* result) {
         [weakSelf.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }];
@@ -857,7 +857,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
         return;
     }
 
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
 
     [self.commandDelegate runInBackground:^ {
         [fs readFileAtURL:localURI start:start end:end callback:^(NSData* data, NSString* mimeType, CDVFileError errorCode) {
@@ -899,7 +899,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 
     NSObject<CDVFileSystem> *fs = [self filesystemForURL:localURI];
 
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
     [self.commandDelegate runInBackground:^ {
         [fs readFileAtURL:localURI start:start end:end callback:^(NSData* data, NSString* mimeType, CDVFileError errorCode) {
             CDVPluginResult* result = nil;
@@ -932,7 +932,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 
     NSObject<CDVFileSystem> *fs = [self filesystemForURL:localURI];
 
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
 
     [self.commandDelegate runInBackground:^ {
         [fs readFileAtURL:localURI start:start end:end callback:^(NSData* data, NSString* mimeType, CDVFileError errorCode) {
@@ -956,7 +956,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 
     NSObject<CDVFileSystem> *fs = [self filesystemForURL:localURI];
 
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
 
     [self.commandDelegate runInBackground:^ {
         [fs readFileAtURL:localURI start:start end:end callback:^(NSData* data, NSString* mimeType, CDVFileError errorCode) {
@@ -996,7 +996,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
  */
 - (void)write:(CDVInvokedUrlCommand*)command
 {
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
 
     [self.commandDelegate runInBackground:^ {
         NSString* callbackId = command.callbackId;

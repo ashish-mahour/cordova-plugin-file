@@ -187,7 +187,7 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
 @synthesize appDocsPath, appDataPath, appSupportPath, appTempPath, appCachePath, userHasAllowed, fileSystems=fileSystems_;
 
 - (void)registerFilesystem:(NSObject<CDVFileSystem> *)fs {
-    __weak CDVFile* weakSelf = self;
+    CDVFile* weakSelf = self;
     SEL sel = NSSelectorFromString(@"urlTransformer");
     // for backwards compatibility - we check if this property is there
     // we create a wrapper block because the urlTransformer property
